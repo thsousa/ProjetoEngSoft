@@ -1,0 +1,50 @@
+Projeto da interface interna:
+
+* Construtores para todas as classes
+* Getters e setters para a maioria dos campos (quando faz sentido)
+
+* Calendário de reservas:
+  * List<Reserva> listaReservas(Date inicio, Date fim); Devolve reservas entre inicio e fim
+  * boolean criaReserva(Reserva reserva); Devolve se conseguiu criar a reserva
+  * boolean removeReserva(Reserva reserva); Devolve se conseguiu remover a reserva (precisa ser dono ou sindico)
+
+* Mural de avisos:
+  * List<Aviso> listaAvisos(Date inicio, Date fim); Devolve avisos postados entre inicio e fim
+  * boolean criaAviso(Aviso aviso);
+  * boolean removeAviso(Aviso aviso);
+
+* Aviso:
+  * boolean criaComentario(ComentarioDoAviso c);
+  * boolean removeComentario(ComentarioDoAviso c);
+
+* Reserva:
+  * boolean criaComentario(ComentarioDaReserva c);
+  * boolean removeComentario(ComentarioDaReserva c);
+
+* Condominio:
+  * List<Usuario> listaSindicos();
+  * List<Usuario> listaMoradores();
+  * List<Usuario> listaFuncionarios();
+  * boolean adicionaSindico(Usuario u); // Esses metodos na verdade modificam a classe usuario
+  * boolean removeSindico(Usuario u);
+  * boolean adicionaFuncionario(Usuario u);
+  * boolean removeFuncionario(Usuario u);
+  * Administradora getAdministradora(); // Vamos precisar modificar a administradora de um condominio em algum momento?
+  * MuralDeAvisos getMuralDeAvisos(); // Devolve a instancia associada a esse condominio
+  * CalendarioDeReservas getCalendarioDeReservas(); // o mesmo que acima
+
+Projeto de classes do sistema:
+
+Classes mais "simples" (só dados):
+* Usuário
+  * Morador
+  * Administradora
+* Aviso
+* Comentário do aviso
+* Área comum
+* Reserva
+* Comentário de reserva
+
+* Calendario de Reservas: Gerencia reservas para um condominio
+* Mural de avisos: Gerencia avisos para um condominio
+* Condomínio: Agrupa/identifica moradores, avisos, síndicos, etc
