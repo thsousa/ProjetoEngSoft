@@ -2,7 +2,7 @@
 # Setup
 Sugestão: Utilizar Eclipse (https://www.eclipse.org/) para importar o projeto direto do github já com a configuração certa do buildpath
 para o banco de dados funcionar. 
-Se não for usar o Eclipse, é necessário referenciar as jars derby.jar, eclipselink.jar, commons-logging-1.1.1.jar e javax.persitence_2.2.0vxxxx.jar no buildpath para executar o aplicativo.
+Se não for usar o Eclipse, é necessário referenciar todas as jars em /lib/ no buildpath para executar o aplicativo.
 
 # Links úteis
 
