@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/commons-codec-1.11.jar"/>
 	<classpathentry kind="lib" path="lib/scribejava-apis-4.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/scribejava-core-4.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/json-20171018.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

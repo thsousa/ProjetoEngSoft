@@ -9,11 +9,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import engsoft.cond.control.LoginManager;
 
-public class LoginScreen extends JPanel {
+public class LoginScreen extends Screen {
 
     /**
      * 
@@ -21,7 +20,7 @@ public class LoginScreen extends JPanel {
     private static final long serialVersionUID = 1L;    
     
     private static final int DEFAULT_WIDTH = 300;
-    private static final int DEFAULT_HEIGHT = 600;
+    private static final int DEFAULT_HEIGHT = 400;
     
     
     public LoginScreen() {

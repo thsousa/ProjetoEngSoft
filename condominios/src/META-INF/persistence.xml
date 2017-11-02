@@ -3,14 +3,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
 	<persistence-unit name="condDB" transaction-type="RESOURCE_LOCAL">
-		<class>engsoft.cond.model.Administradora</class>
 		<class>engsoft.cond.model.AreaComum</class>
 		<class>engsoft.cond.model.Aviso</class>
 		<class>engsoft.cond.model.Calendario</class>
 		<class>engsoft.cond.model.ComentarioAviso</class>
 		<class>engsoft.cond.model.ComentarioReserva</class>
 		<class>engsoft.cond.model.Condominio</class>
-		<class>engsoft.cond.model.Morador</class>
 		<class>engsoft.cond.model.Mural</class>
 		<class>engsoft.cond.model.Reserva</class>
 		<class>engsoft.cond.model.Usuario</class>

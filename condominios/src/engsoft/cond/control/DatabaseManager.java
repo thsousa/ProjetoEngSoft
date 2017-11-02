@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
@@ -32,39 +33,6 @@ public class DatabaseManager {
         }
 
         return autoRef;
-    }
-
-    @SuppressWarnings("rawtypes")
-    public ArrayList<Usuario> getListOfUsers() {
-        em = EMF.get().createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
-            tx.begin();
-            Query q = em.createQuery("SELECT p FROM Usuario p");
-            java.util.List results = q.getResultList();
-            Iterator iter = results.iterator();
-            ArrayList<Usuario> users = new ArrayList<Usuario>();
-            while (iter.hasNext()) {
-                Usuario user = (Usuario) iter.next();
-                if (user != null) {
-                    users.add(user);
-                }
-            }
-            tx.commit();
-            return(users);
-        } catch (Exception e) {
-
-            LOGGER.error("Error reading users.");
-            e.printStackTrace();
-            return(null);
-
-        } finally {
-            if (tx.isActive()) {
-                tx.rollback();
-            }
-
-            em.close();
-        }
     }
     
     @SuppressWarnings("rawtypes")
@@ -177,6 +145,37 @@ public class DatabaseManager {
         }
 
         em.close();        
+    }
+    
+    public Usuario getRegisteredUser(String email) {
+        em = EMF.get().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            Query q = em.createQuery("SELECT p FROM Usuario p WHERE p.email = '" + email + "'");
+            Usuario us = null;
+            
+            try {
+                us = (Usuario) q.getSingleResult();
+            } catch (NoResultException e) {
+                us = null;
+            }
+            tx.commit();
+            return(us);
+        } catch (Exception e) {
+
+            LOGGER.error("Error reading objects.");
+            e.printStackTrace();
+            return(null);
+
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+
+            em.close();
+        }
+        
     }
 
 }

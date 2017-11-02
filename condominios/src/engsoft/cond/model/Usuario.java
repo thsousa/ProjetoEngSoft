@@ -1,11 +1,16 @@
 package engsoft.cond.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -19,6 +24,10 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_usuario;
+    
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Condominio> condominios;
 
     @Column(unique=true)
     private String email;
@@ -38,16 +47,24 @@ public class Usuario {
     @Basic 
     private String tel2;
 
+    // 'm' morador, 's' sindico, 'f' funcionario, 'a' administradora, 'x' sysadm
     @Basic 
-    private String nivel_acesso;
+    private String nivel_acesso;    
+
+    @Basic
+    private String bloco;
+
+    @Basic
+    private String apartamento;
     
     public Usuario() {
-        
+        this.condominios = new ArrayList<Condominio>();       
     }
     
     public Usuario(String email, String nome, String cpf, String cnpj, String tel1,
             String tel2, String nivel_acesso) {
         super();
+        this.condominios = new ArrayList<Condominio>();
         this.email = email;
         this.nome = nome;
         this.cpf = cpf;
@@ -55,6 +72,22 @@ public class Usuario {
         this.tel1 = tel1;
         this.tel2 = tel2;
         this.nivel_acesso = nivel_acesso;
+    }
+    
+    public List<Condominio> getCondominios() {
+        return condominios;
+    }
+
+    public void setCondominios(List<Condominio> condominios) {
+        this.condominios = condominios;
+    }
+
+    public void addCondominio(Condominio condominio) {
+        this.condominios.add(condominio);
+    }
+
+    public void removeCondominio(Condominio condominio) {
+        this.condominios.remove(condominio);
     }
 
     public String getEmail() {
@@ -115,6 +148,23 @@ public class Usuario {
 
     public int getId_usuario() {
         return id_usuario;
+    }
+    
+
+    public String getBloco() {
+        return bloco;
+    }
+
+    public void setBloco(String bloco) {
+        this.bloco = bloco;
+    }
+
+    public String getApartamento() {
+        return apartamento;
+    }
+
+    public void setApartamento(String apartamento) {
+        this.apartamento = apartamento;
     }
     
     @Override
