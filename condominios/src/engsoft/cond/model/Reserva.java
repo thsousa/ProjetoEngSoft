@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,37 +15,37 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Reserva {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_reserva;
-    
-    @OneToOne
-    private Usuario usuario;    
 
-    @OneToOne
-    private AreaComum area;    
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Usuario usuario;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private AreaComum area;
 
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<ComentarioReserva> comentarios;
-    
-    @Basic 
+
+    @Basic
     private String data;
 
-    @Basic 
+    @Basic
     private String hora;
 
-    @Basic 
-    private String nome_morador; 
-    
+    @Basic
+    private String nome_morador;
+
     @Basic
     private int status;
-    
+
     public Reserva() {
-        this.comentarios = new ArrayList<ComentarioReserva>();        
-    }   
-    
+        this.comentarios = new ArrayList<ComentarioReserva>();
+    }
+
 
     public Reserva(Usuario usuario, AreaComum area, String data, String hora,
             String nome_morador, int status) {
@@ -83,11 +84,11 @@ public class Reserva {
     public void setComentarios(List<ComentarioReserva> comentarios) {
         this.comentarios = comentarios;
     }
-    
+
     public void addComentario(ComentarioReserva comentario) {
         this.comentarios.add(comentario);
     }
-    
+
     public void removeComentario(ComentarioReserva comentario) {
         this.comentarios.remove(comentario);
     }
@@ -127,9 +128,9 @@ public class Reserva {
     public int getId_reserva() {
         return id_reserva;
     }
-    
-    
-    
-    
+
+
+
+
 
 }

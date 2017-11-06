@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,27 +15,27 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Condominio {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_condominio;
-    
-    @OneToMany(fetch=FetchType.EAGER)
+
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<AreaComum> areas;
-    
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Mural mural;
-  
-    @Basic 
+
+    @Basic
     private String nome;
 
-    @Basic 
+    @Basic
     private String endereco;
-    
+
     public Condominio() {
-        this.areas = new ArrayList<AreaComum>();        
-    }    
-    
+        this.areas = new ArrayList<AreaComum>();
+    }
+
 
     public Condominio(String nome, String endereco) {
         super();
@@ -73,11 +74,11 @@ public class Condominio {
     public void setAreas(List<AreaComum> areas) {
         this.areas = areas;
     }
-    
+
     public void addArea(AreaComum area) {
         this.areas.add(area);
     }
-    
+
     public void removeArea(AreaComum area) {
         this.areas.remove(area);
     }
@@ -91,18 +92,18 @@ public class Condominio {
     public void setMural(Mural mural) {
         this.mural = mural;
     }
-    
-    
+
+
     @Override
     public String toString() {
         String str_areas = "Areas: ";
         for(AreaComum a : areas) {
             str_areas = str_areas + "\n" + a.toString();
         }
-        return "Condomínio " + nome + " - endereço: " + endereco + "\n" + str_areas;
+        return "Condomï¿½nio " + nome + " - endereï¿½o: " + endereco + "\n" + str_areas;
     }
-    
-    
-    
+
+
+
 
 }

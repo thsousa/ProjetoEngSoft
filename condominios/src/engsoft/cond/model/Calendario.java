@@ -3,6 +3,7 @@ package engsoft.cond.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,23 +14,23 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Calendario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_calendario;
-    
-    @OneToOne
-    private Condominio condominio;    
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Condominio condominio;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Reserva> reservas;
-    
-    
+
+
     public Calendario() {
         this.reservas = new ArrayList<Reserva>();
-        
+
     }
-    
+
     public Calendario(Condominio condominio) {
         this.condominio = condominio;
         this.reservas = new ArrayList<Reserva>();
@@ -50,11 +51,11 @@ public class Calendario {
     public void setReservas(List<Reserva> reservas) {
         this.reservas = reservas;
     }
-    
+
     public void addReserva(Reserva reserva) {
         this.reservas.add(reserva);
     }
-    
+
     public void removeReserva(Reserva reserva) {
         this.reservas.remove(reserva);
     }
@@ -62,8 +63,8 @@ public class Calendario {
     public int getId_calendario() {
         return id_calendario;
     }
-    
-    
-    
+
+
+
 
 }

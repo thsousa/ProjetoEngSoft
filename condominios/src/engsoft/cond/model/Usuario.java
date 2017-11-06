@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- * 
+ *
  * @author ogawa
  *
  */
@@ -24,43 +25,43 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_usuario;
-    
 
-    @OneToMany(fetch = FetchType.EAGER)
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Condominio> condominios;
 
     @Column(unique=true)
     private String email;
-    
-    @Basic 
+
+    @Basic
     private String nome;
 
-    @Column(unique=true)
+    @Basic
     private String cpf;
 
-    @Column(unique=true)
+    @Basic
     private String cnpj;
 
-    @Basic 
+    @Basic
     private String tel1;
 
-    @Basic 
+    @Basic
     private String tel2;
 
     // 'm' morador, 's' sindico, 'f' funcionario, 'a' administradora, 'x' sysadm
-    @Basic 
-    private String nivel_acesso;    
+    @Basic
+    private String nivel_acesso;
 
     @Basic
     private String bloco;
 
     @Basic
     private String apartamento;
-    
+
     public Usuario() {
-        this.condominios = new ArrayList<Condominio>();       
+        this.condominios = new ArrayList<Condominio>();
     }
-    
+
     public Usuario(String email, String nome, String cpf, String cnpj, String tel1,
             String tel2, String nivel_acesso) {
         super();
@@ -73,7 +74,22 @@ public class Usuario {
         this.tel2 = tel2;
         this.nivel_acesso = nivel_acesso;
     }
-    
+
+    public Usuario(String email, String nome, String cpf, String cnpj, String tel1,
+            String tel2, String nivel_acesso, String apartamento, String bloco) {
+        super();
+        this.condominios = new ArrayList<Condominio>();
+        this.email = email;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.cnpj = cnpj;
+        this.tel1 = tel1;
+        this.tel2 = tel2;
+        this.nivel_acesso = nivel_acesso;
+        this.apartamento = apartamento;
+        this.bloco = bloco;
+    }
+
     public List<Condominio> getCondominios() {
         return condominios;
     }
@@ -149,7 +165,7 @@ public class Usuario {
     public int getId_usuario() {
         return id_usuario;
     }
-    
+
 
     public String getBloco() {
         return bloco;
@@ -166,7 +182,7 @@ public class Usuario {
     public void setApartamento(String apartamento) {
         this.apartamento = apartamento;
     }
-    
+
     @Override
     public String toString() {
         return id_usuario + " - " + email + " - " + nome + " - Nivel: " + nivel_acesso;

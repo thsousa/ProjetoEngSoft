@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,27 +20,27 @@ public class Aviso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_aviso;
-    
-    @OneToOne
-    private Usuario usuario;    
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToOne
+    private Usuario usuario;
+
+    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<ComentarioAviso> comentarios;
-    
-    @Basic 
+
+    @Basic
     private String datahora;
 
-    @Basic 
-    private String titulo; 
-    
+    @Basic
+    private String titulo;
+
     @Basic
     private String texto;
-    
+
     public Aviso() {
-        this.comentarios = new ArrayList<ComentarioAviso>();        
+        this.comentarios = new ArrayList<ComentarioAviso>();
     }
-    
-    
+
+
 
     public Aviso(Usuario usuario, String datahora, String titulo, String texto) {
         super();
@@ -51,7 +52,7 @@ public class Aviso {
     }
 
 
-    
+
 
     public List<ComentarioAviso> getComentarios() {
         return comentarios;
@@ -62,7 +63,7 @@ public class Aviso {
     public void setComentarios(List<ComentarioAviso> comentarios) {
         this.comentarios = comentarios;
     }
-    
+
     public void addComentario(ComentarioAviso comentario) {
         this.comentarios.add(comentario);
     }
@@ -106,6 +107,6 @@ public class Aviso {
     public int getId_aviso() {
         return id_aviso;
     }
-    
-    
+
+
 }

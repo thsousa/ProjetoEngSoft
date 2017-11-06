@@ -1,6 +1,7 @@
 package engsoft.cond.model;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,25 +10,25 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class ComentarioReserva {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_comentario_Reserva;
-    
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Usuario usuario;
-    
-    @Basic 
+
+    @Basic
     private String datahora;
-    
+
     @Basic
     private String texto;
-    
+
     public ComentarioReserva() {
-        
+
     }
-    
-    
+
+
 
     public ComentarioReserva(Usuario usuario, String datahora, String texto) {
         super();
@@ -64,7 +65,7 @@ public class ComentarioReserva {
     public int getId_comentario_Reserva() {
         return id_comentario_Reserva;
     }
-    
-    
+
+
 
 }
