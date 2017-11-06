@@ -86,6 +86,7 @@ public class GoogleLoginScreen extends Screen {
         this.add(cod);
         this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
         this.add(googleLogin);
+        this.addBackButton();
 
     }
 

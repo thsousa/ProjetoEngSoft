@@ -132,6 +132,7 @@ public class SignupScreen extends Screen {
         this.add(tel2T);
         this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
         this.add(signupButton);
+        this.addBackButton();
     }
 
 }

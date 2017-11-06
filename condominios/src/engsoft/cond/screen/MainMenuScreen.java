@@ -76,6 +76,7 @@ public class MainMenuScreen extends Screen {
             if (user.getNivel_acesso().contains(MOR_LEVEL)) {
                 buildMorMenu();
             }
+            this.addLogoutButton();
         }
 
     }
