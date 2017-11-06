@@ -15,41 +15,41 @@ import engsoft.cond.control.LoginManager;
 
 public class GoogleLoginScreen extends Screen {
     /**
-     * 
+     *
      */
-    private static final long serialVersionUID = 1L;    
-    
+    private static final long serialVersionUID = 1L;
+
     private static final int DEFAULT_WIDTH = 300;
     private static final int DEFAULT_HEIGHT = 400;
-    
+
     public GoogleLoginScreen() {
-        
+
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
-        JLabel title = new JLabel("Sistema de CondomÌnios - Login", JLabel.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 14));    
-        title.setAlignmentX(CENTER_ALIGNMENT);
-        
 
-        JLabel desc = new JLabel("FaÁa login pela p·gina do navegador que abriu.", JLabel.CENTER);
-        desc.setAlignmentX(CENTER_ALIGNMENT);        
-        
-        JLabel info = new JLabel("Copie o cÛdigo de autenticaÁ„o: ", JLabel.CENTER);
-        info.setAlignmentX(CENTER_ALIGNMENT);        
-        
-        JTextField cod = new JTextField();
+        JLabel title = new JLabel("Sistema de Condom√≠nios - Login", JLabel.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 14));
+        title.setAlignmentX(CENTER_ALIGNMENT);
+
+
+        JLabel desc = new JLabel("Fa√ßa login pela p√°gina do navegador que abriu.", JLabel.CENTER);
+        desc.setAlignmentX(CENTER_ALIGNMENT);
+
+        JLabel info = new JLabel("Copie o c√≥digo de autentica√ß√£o: ", JLabel.CENTER);
+        info.setAlignmentX(CENTER_ALIGNMENT);
+
+        final JTextField cod = new JTextField();
         cod.setMaximumSize(new Dimension(DEFAULT_WIDTH - 50, 30));
-        cod.setAlignmentX(CENTER_ALIGNMENT);     
-        
-        
+        cod.setAlignmentX(CENTER_ALIGNMENT);
+
+
         JButton googleLogin = new JButton("Finalizar login");
         googleLogin.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                LoginManager.getInstance().doGoogleLogin(cod.getText());                
+                LoginManager.getInstance().doGoogleLogin(cod.getText());
             }
         });
         googleLogin.setAlignmentX(CENTER_ALIGNMENT);
@@ -64,7 +64,7 @@ public class GoogleLoginScreen extends Screen {
         this.add(cod);
         this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
         this.add(googleLogin);
-        
+
     }
 
 }

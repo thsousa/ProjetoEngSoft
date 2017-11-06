@@ -17,89 +17,89 @@ import engsoft.cond.model.Usuario;
 public class SignupScreen extends Screen {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8183767463523397286L;
     private static final int DEFAULT_WIDTH = 300;
     private static final int DEFAULT_HEIGHT = 600;
-    
+
     public SignupScreen() {
         initScreen("", "", "", "", "", "");
     }
-    
+
     public SignupScreen(String email, String nome) {
         initScreen(email, nome, "", "", "", "");
     }
-    
+
     public SignupScreen(Usuario user) {
         initScreen(user.getEmail(), user.getNome(), user.getCpf(), user.getCnpj(), user.getTel1(), user.getTel2());
     }
-    
+
     private void initScreen(String email, String nome, String cpf, String cnpj, String tel1, String tel2) {
 
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
-        JLabel title = new JLabel("Sistema de CondomÌnios - Cadastro", JLabel.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 14));    
+
+        JLabel title = new JLabel("Sistema de Condom√≠nios - Cadastro", JLabel.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 14));
         title.setAlignmentX(CENTER_ALIGNMENT);
-        
+
 
         JLabel emailL = new JLabel("Email: ", JLabel.CENTER);
         emailL.setAlignmentX(CENTER_ALIGNMENT);
-        
-        JTextField emailT = new JTextField();
+
+        final JTextField emailT = new JTextField();
         emailT.setMaximumSize(new Dimension(DEFAULT_WIDTH - 50, 30));
         emailT.setAlignmentX(CENTER_ALIGNMENT);
-        emailT.setText(email);                
-        
+        emailT.setText(email);
+
         JLabel nomeL = new JLabel("Nome: ", JLabel.CENTER);
         nomeL.setAlignmentX(CENTER_ALIGNMENT);
-        
-        JTextField nomeT = new JTextField();
+
+        final JTextField nomeT = new JTextField();
         nomeT.setMaximumSize(new Dimension(DEFAULT_WIDTH - 50, 30));
         nomeT.setAlignmentX(CENTER_ALIGNMENT);
-        nomeT.setText(nome);         
-        
+        nomeT.setText(nome);
+
         JLabel cpfL = new JLabel("CPF: ", JLabel.CENTER);
         cpfL.setAlignmentX(CENTER_ALIGNMENT);
-        
-        JTextField cpfT = new JTextField();
+
+        final JTextField cpfT = new JTextField();
         cpfT.setMaximumSize(new Dimension(DEFAULT_WIDTH - 50, 30));
         cpfT.setAlignmentX(CENTER_ALIGNMENT);
         cpfT.setText(cpf);
-        
+
         JLabel cnpjL = new JLabel("CNPJ: ", JLabel.CENTER);
         cnpjL.setAlignmentX(CENTER_ALIGNMENT);
-        
-        JTextField cnpjT = new JTextField();
+
+        final JTextField cnpjT = new JTextField();
         cnpjT.setMaximumSize(new Dimension(DEFAULT_WIDTH - 50, 30));
         cnpjT.setAlignmentX(CENTER_ALIGNMENT);
         cnpjT.setText(cnpj);
-        
+
         JLabel tel1L = new JLabel("Telefone principal: ", JLabel.CENTER);
         tel1L.setAlignmentX(CENTER_ALIGNMENT);
-        
-        JTextField tel1T = new JTextField();
+
+        final JTextField tel1T = new JTextField();
         tel1T.setMaximumSize(new Dimension(DEFAULT_WIDTH - 50, 30));
         tel1T.setAlignmentX(CENTER_ALIGNMENT);
         tel1T.setText(tel1);
-        
-        JLabel tel2L = new JLabel("Telefone secund·rio: ", JLabel.CENTER);
+
+        JLabel tel2L = new JLabel("Telefone secund√°rio: ", JLabel.CENTER);
         tel2L.setAlignmentX(CENTER_ALIGNMENT);
-        
-        JTextField tel2T = new JTextField();
+
+        final JTextField tel2T = new JTextField();
         tel2T.setMaximumSize(new Dimension(DEFAULT_WIDTH - 50, 30));
         tel2T.setAlignmentX(CENTER_ALIGNMENT);
         tel2T.setText(tel2);
-        
+
         JButton signupButton = new JButton("Realizar cadastro");
         signupButton.addActionListener(new ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                SignupManager.getInstance().doSignup(nomeT.getText(), emailT.getText(), cpfT.getText(), cnpjT.getText(), tel1T.getText(), tel2T.getText());                
+                SignupManager.getInstance().doSignup(nomeT.getText(), emailT.getText(), cpfT.getText(), cnpjT.getText(), tel1T.getText(), tel2T.getText());
             }
         });
         signupButton.setAlignmentX(CENTER_ALIGNMENT);

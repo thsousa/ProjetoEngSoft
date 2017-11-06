@@ -19,6 +19,8 @@ public class DatabaseManager {
 
     private static DatabaseManager autoRef;
     private static final Log LOGGER = LogFactory.getLog(DatabaseManager.class);
+    private static final String[] TABLES = {"AreaComum", "Aviso", "Calendario", "ComentarioAviso", "ComentarioReserva",
+                                     "Condominio", "Mural", "Reserva", "Usuario"};
 
     @PersistenceUnit
     protected EntityManager em;
@@ -34,7 +36,7 @@ public class DatabaseManager {
 
         return autoRef;
     }
-    
+
     @SuppressWarnings("rawtypes")
     public ArrayList<Object> getListFromTable(String table) {
         em = EMF.get().createEntityManager();
@@ -45,7 +47,7 @@ public class DatabaseManager {
             java.util.List results = q.getResultList();
             Iterator iter = results.iterator();
             ArrayList<Object> objs = new ArrayList<Object>();
-            while (iter.hasNext()) {                
+            while (iter.hasNext()) {
                 Object obj = iter.next();
                 if (obj != null) {
                     objs.add(obj);
@@ -69,11 +71,11 @@ public class DatabaseManager {
     }
 
     /**
-     * Persite o usu·rio no banco de dados. Checagem de CPF/CNPJ/e-mail/telefone
-     * v·lidos pode (deveria) ser feita aqui por ser "server-side"
-     * 
+     * Persite o usu√°rio no banco de dados. Checagem de CPF/CNPJ/e-mail/telefone
+     * v√°lidos pode (deveria) ser feita aqui por ser "server-side"
+     *
      * @TODO melhorar tratamento de erros
-     * 
+     *
      * @param user
      */
     public boolean saveUsuario(Usuario user) {
@@ -88,7 +90,7 @@ public class DatabaseManager {
             tx.commit();
             return(true);
         } catch (Exception e) {
-            LOGGER.error("Erro ao salvar usu·rio.");
+            LOGGER.error("Erro ao salvar usu√°rio.");
             e.printStackTrace();
             return(false);
         } finally {
@@ -99,11 +101,11 @@ public class DatabaseManager {
             em.close();
         }
     }
-    
-    
+
+
     /**
-     * Persite uma entidade genÈrica no banco de dados
-     *  
+     * Persite uma entidade gen√©rica no banco de dados
+     *
      * @param condominio
      */
     public boolean saveEntity(Object entity) {
@@ -129,8 +131,8 @@ public class DatabaseManager {
             em.close();
         }
     }
-    
-    
+
+
     public void clearTable(String table) {
         em = EMF.get().createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -139,14 +141,20 @@ public class DatabaseManager {
         Query q = em.createQuery("DELETE FROM " + table + " p");
         q.executeUpdate();
         tx.commit();
-        
+
         if (tx.isActive()) {
             tx.rollback();
         }
 
-        em.close();        
+        em.close();
     }
-    
+
+    public void clearAllTables() {
+    	for (String t : TABLES) {
+    		clearTable(t);
+    	}
+    }
+
     public Usuario getRegisteredUser(String email) {
         em = EMF.get().createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -154,7 +162,7 @@ public class DatabaseManager {
             tx.begin();
             Query q = em.createQuery("SELECT p FROM Usuario p WHERE p.email = '" + email + "'");
             Usuario us = null;
-            
+
             try {
                 us = (Usuario) q.getSingleResult();
             } catch (NoResultException e) {
@@ -175,7 +183,11 @@ public class DatabaseManager {
 
             em.close();
         }
-        
+
+    }
+
+    public void populate() {
+
     }
 
 }
