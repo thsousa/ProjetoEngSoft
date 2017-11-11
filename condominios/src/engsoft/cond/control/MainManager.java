@@ -11,7 +11,7 @@ import engsoft.cond.screen.Screen;
 
 public class MainManager {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final boolean POP_DB = false;
     public static final boolean CLEAR_DB = false;
 

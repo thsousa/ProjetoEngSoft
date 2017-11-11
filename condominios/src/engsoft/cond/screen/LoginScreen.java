@@ -39,11 +39,23 @@ public class LoginScreen extends Screen {
             }
         });
         googleLogin.setAlignmentX(CENTER_ALIGNMENT);
+        
+        JButton twitterLogin = new JButton("Login com conta Twitter");
+        twitterLogin.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginManager.getInstance().doTwitterLogin();
+            }
+        });
+        twitterLogin.setAlignmentX(CENTER_ALIGNMENT);
 
         this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
         this.add(title);
         this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
         this.add(googleLogin);
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
+        this.add(twitterLogin);
     }
 
 
