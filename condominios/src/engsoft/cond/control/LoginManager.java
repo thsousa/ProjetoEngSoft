@@ -73,8 +73,8 @@ public class LoginManager {
         }
 
     	if (MainManager.DEBUG) {
-    		LOGGER.info("DEBUG - Pulando login pelo Google, insira o e-mail na prÃ³xima tela");
-            googleLoginScreen.addError("MODO DEBUG", "Insira e-mail do usuÃ¡rio que deseja logar.");
+    		LOGGER.info("DEBUG - Pulando login pelo Google, insira o e-mail na próxima tela");
+            googleLoginScreen.addError("MODO DEBUG", "Insira e-mail do usuário que deseja logar.");
             MainManager.getInstance().changeScreen(googleLoginScreen);
             return;
     	}
@@ -90,14 +90,14 @@ public class LoginManager {
                 Desktop.getDesktop().browse(new URI(authUrl));
                 MainManager.getInstance().changeScreen(googleLoginScreen);
             } catch (IOException e) {
-                googleLoginScreen.addError("Navegador indisponÃ­vel", "NÃ£o foi possÃ­vel abrir o navegador.");
+                googleLoginScreen.addError("Navegador indisponível", "Não foi possível abrir o navegador.");
                 LOGGER.error("Erro ao abrir navegador - IOException");
             } catch (URISyntaxException e) {
-                googleLoginScreen.addError("Navegador indisponÃ­vel", "NÃ£o foi possÃ­vel abrir o navegador.");
+                googleLoginScreen.addError("Navegador indisponível", "Não foi possível abrir o navegador.");
                 LOGGER.error("Erro ao abrir navegador - URL syntax");
             }
         } else {
-            googleLoginScreen.addError("Navegador indisponÃ­vel", "NÃ£o foi possÃ­vel abrir o navegador.");
+            googleLoginScreen.addError("Navegador indisponível", "Não foi possível abrir o navegador.");
             LOGGER.error("Erro ao abrir navegador - Desktop unsupported");
         }
 
@@ -106,7 +106,7 @@ public class LoginManager {
     public void doGoogleLogin(String authCode) {
 
     	if (MainManager.DEBUG) {
-    		LOGGER.info("Fazendo login para o usuÃ¡rio " + authCode);
+    		LOGGER.info("Fazendo login para o usuário " + authCode);
     		Usuario regUser = DatabaseManager.getInstance().getRegisteredUser(authCode);
 
             if (regUser == null) {
@@ -122,17 +122,17 @@ public class LoginManager {
             googleAccessToken = googleService.getAccessToken(authCode);
         } catch (IOException e) {
             LOGGER.error("Erro ao obter token google - IOException");
-            googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+            googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
         } catch (InterruptedException e) {
             LOGGER.error("Erro ao obter token google - Interrupted");
-            googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+            googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
         } catch (ExecutionException e) {
             LOGGER.error("Erro ao obter token google - Execution");
-            googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+            googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
         } catch (Exception e) {
             LOGGER.error("Erro ao obter token google - Generic");
             e.printStackTrace();
-            googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+            googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
         }
 
         if (googleAccessToken != null) {
@@ -159,20 +159,20 @@ public class LoginManager {
                     }
 
                 } else {
-                    LOGGER.error("Erro ao obter dados google - cÃ³digo " + res.getCode());
-                    googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+                    LOGGER.error("Erro ao obter dados google - código " + res.getCode());
+                    googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
                 }
 
 
             } catch (IOException e) {
                 LOGGER.error("Erro ao obter token google - IOException");
-                googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+                googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
             } catch (InterruptedException e) {
                 LOGGER.error("Erro ao obter token google - Interrupted");
-                googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+                googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
             } catch (ExecutionException e) {
                 LOGGER.error("Erro ao obter token google - Execution");
-                googleLoginScreen.addError("AutenticaÃ§Ã£o", "NÃ£o foi possÃ­vel fazer login.");
+                googleLoginScreen.addError("Autenticação", "Não foi possível fazer login.");
             }
 
         }

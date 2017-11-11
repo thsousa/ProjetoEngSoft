@@ -30,15 +30,15 @@ public class GoogleLoginScreen extends Screen {
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("Sistema de Condom√≠nios - Login", JLabel.CENTER);
+        JLabel title = new JLabel("Sistema de CondomÌnios - Login", JLabel.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 14));
         title.setAlignmentX(CENTER_ALIGNMENT);
 
 
-        JLabel desc = new JLabel("Fa√ßa login pela p√°gina do navegador que abriu.", JLabel.CENTER);
+        JLabel desc = new JLabel("FaÁa login pela p·gina do navegador que abriu.", JLabel.CENTER);
         desc.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel info = new JLabel("Copie o c√≥digo de autentica√ß√£o: ", JLabel.CENTER);
+        JLabel info = new JLabel("Copie o cÛdigo de autenticaÁ„o: ", JLabel.CENTER);
         info.setAlignmentX(CENTER_ALIGNMENT);
 
         final JTextField cod = new JTextField();

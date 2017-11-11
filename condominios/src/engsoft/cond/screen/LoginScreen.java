@@ -28,7 +28,7 @@ public class LoginScreen extends Screen {
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("Sistema de CondomÃ­nios - Login", JLabel.CENTER);
+        JLabel title = new JLabel("Sistema de Condomínios - Login", JLabel.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 14));
         title.setAlignmentX(CENTER_ALIGNMENT);
 

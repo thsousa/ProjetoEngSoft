@@ -41,7 +41,7 @@ public class SignupScreen extends Screen {
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("Sistema de Condom√≠nios - Cadastro", JLabel.CENTER);
+        JLabel title = new JLabel("Sistema de CondomÌnios - Cadastro", JLabel.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 14));
         title.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -86,7 +86,7 @@ public class SignupScreen extends Screen {
         tel1T.setAlignmentX(CENTER_ALIGNMENT);
         tel1T.setText(tel1);
 
-        JLabel tel2L = new JLabel("Telefone secund√°rio: ", JLabel.CENTER);
+        JLabel tel2L = new JLabel("Telefone secund·rio: ", JLabel.CENTER);
         tel2L.setAlignmentX(CENTER_ALIGNMENT);
 
         final JTextField tel2T = new JTextField();

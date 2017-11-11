@@ -10,7 +10,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import engsoft.cond.control.AdmManager;
+import engsoft.cond.control.CondoManager;
 import engsoft.cond.control.MainManager;
+import engsoft.cond.control.MorManager;
+import engsoft.cond.control.NoticesManager;
+import engsoft.cond.control.ReservationsManager;
 import engsoft.cond.control.SignupManager;
 import engsoft.cond.model.Usuario;
 import static engsoft.cond.util.Constants.*;
@@ -34,7 +39,7 @@ public class MainMenuScreen extends Screen {
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel("Sistema de CondomÃ­nios - Menu princpal", JLabel.CENTER);
+        JLabel title = new JLabel("Sistema de Condomínios - Menu princpal", JLabel.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 14));
         title.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -45,7 +50,7 @@ public class MainMenuScreen extends Screen {
 
         boolean hasNoCondo = user.getCondominios().isEmpty();
         if (hasNoCondo) {
-            noCondo = new JLabel("VocÃª nÃ£o estÃ¡ cadastrado em nenhum condomÃ­nio, entre em contato com seu sÃ­ndico ou administradora.");
+            noCondo = new JLabel("Você não está cadastrado em nenhum condomínio, entre em contato com seu síndico ou administradora.");
             noCondo.setAlignmentX(CENTER_ALIGNMENT);
         }
 
@@ -57,25 +62,23 @@ public class MainMenuScreen extends Screen {
             this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
             this.add(noCondo);
         } else {
+            
             if (user.getNivel_acesso().contains(SYSADMIN_LEVEL)) {
-                // TODO montar menu de sys admin
+                buildSysAdmMenu();
             }
 
             if (user.getNivel_acesso().contains(ADMIN_LEVEL)) {
-                // TODO montar menu de admin
+                buildAdmMenu();
             }
 
             if (user.getNivel_acesso().contains(SIND_LEVEL)) {
-                // TODO montar menu de sï¿½ndico
-            }
-
-            if (user.getNivel_acesso().contains(FUNC_LEVEL)) {
-                // TODO montar menu de funcionï¿½rio
+                buildSindMenu();
             }
 
             if (user.getNivel_acesso().contains(MOR_LEVEL)) {
                 buildMorMenu();
             }
+            
             this.addLogoutButton();
         }
 
@@ -88,18 +91,16 @@ public class MainMenuScreen extends Screen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO mudar para tela de avisos
-                // MainManager.getInstance().changeScreen(NoticesManager.getInstance().getNoticesScreen())
+                MainManager.getInstance().changeScreen(NoticesManager.getInstance().getNoticesScreen());
             }
         });
-        JButton reserv = new JButton("Reservas de Ã¡reas comuns");
+        JButton reserv = new JButton("Reservas de Áreas comuns");
         reserv.setAlignmentX(CENTER_ALIGNMENT);
         reserv.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO mudar para tela de reservas
-                // MainManager.getInstance().changeScreen(ReservationsManager.getInstance().getReservationsScreen())
+                MainManager.getInstance().changeScreen(ReservationsManager.getInstance().getReservationsScreen());
             }
         });
         JButton updateInfo = new JButton("Atualizar cadastro");
@@ -118,6 +119,67 @@ public class MainMenuScreen extends Screen {
         this.add(reserv);
         this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
         this.add(updateInfo);
+    }
+    
+    private void buildSysAdmMenu() {
+        
+        JButton cadAdm = new JButton("Cadastro de administradoras");
+        cadAdm.setAlignmentX(CENTER_ALIGNMENT);
+        cadAdm.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainManager.getInstance().changeScreen(AdmManager.getInstance().getAdmScreen());
+            }
+        });
+        JButton cadCond = new JButton("Cadastro de condomínios");
+        cadCond.setAlignmentX(CENTER_ALIGNMENT);
+        cadCond.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainManager.getInstance().changeScreen(AdmManager.getInstance().getCondCadScreen());
+            }
+        });
+
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
+        this.add(cadAdm);
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
+        this.add(cadCond);
+        
+    }
+    
+    private void buildAdmMenu() {
+        
+        JButton gerCond = new JButton("Gerenciar condomínios");
+        gerCond.setAlignmentX(CENTER_ALIGNMENT);
+        gerCond.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainManager.getInstance().changeScreen(CondoManager.getInstance().getCondoScreen());
+            }
+        });
+        
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
+        this.add(gerCond);
+        
+    }
+    
+    private void buildSindMenu() {
+        
+        JButton gerMor = new JButton("Gerenciar condôminos");
+        gerMor.setAlignmentX(CENTER_ALIGNMENT);
+        gerMor.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainManager.getInstance().changeScreen(MorManager.getInstance().getMorScreen());
+            }
+        });         
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
+        this.add(gerMor);
+        
     }
 
 
