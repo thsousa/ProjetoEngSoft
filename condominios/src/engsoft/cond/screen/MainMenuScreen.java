@@ -26,9 +26,6 @@ public class MainMenuScreen extends Screen {
      *
      */
     private static final long serialVersionUID = -5258163305153901400L;
-    private static final int DEFAULT_WIDTH = 800;
-    private static final int DEFAULT_HEIGHT = 600;
-
 
     public MainMenuScreen() {
     }
@@ -36,6 +33,7 @@ public class MainMenuScreen extends Screen {
     public MainMenuScreen(Usuario user) {
 
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.setMinimumSize(getSize());
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -73,9 +71,9 @@ public class MainMenuScreen extends Screen {
 
             if (user.getNivel_acesso().contains(SIND_LEVEL)) {
                 buildSindMenu();
-            }
+            }             
 
-            if (user.getNivel_acesso().contains(MOR_LEVEL)) {
+            if (user.getNivel_acesso().contains(MOR_LEVEL) || user.getNivel_acesso().contains(SIND_LEVEL) || user.getNivel_acesso().contains(FUNC_LEVEL)) {
                 buildMorMenu();
             }
             

@@ -19,6 +19,8 @@ public class Screen extends JPanel {
      *
      */
     private static final long serialVersionUID = -5551074437665635282L;
+    protected static final int DEFAULT_WIDTH = 800;
+    protected static final int DEFAULT_HEIGHT = 600;
 
     private JLabel err;
 
@@ -35,7 +37,7 @@ public class Screen extends JPanel {
 				MainManager.getInstance().goBack();
 			}
 		});
-        this.add(Box.createRigidArea(new Dimension(100, 30)));
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 30)));
     	this.add(back);
         MainManager.getInstance().refresh();
     }
@@ -48,7 +50,7 @@ public class Screen extends JPanel {
     			MainManager.getInstance().logout();
     		}
     	});
-        this.add(Box.createRigidArea(new Dimension(100, 30)));
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 30)));
     	this.add(logout);
         MainManager.getInstance().refresh();
     }
@@ -60,7 +62,7 @@ public class Screen extends JPanel {
         err = new JLabel("ERRO: " + title + " - " + content);
         err.setFont(new Font("Arial", Font.BOLD, 12));
         err.setForeground(Color.RED);
-        this.add(Box.createRigidArea(new Dimension(100, 30)));
+        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 30)));
         this.add(err);
         MainManager.getInstance().refresh();
     }

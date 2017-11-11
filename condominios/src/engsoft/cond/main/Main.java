@@ -34,12 +34,12 @@ public class Main {
         }
 
         if (MainManager.DEBUG){
-        	LOGGER.info("Executando em modo debug, autenticaÃ§Ã£o desabilitada");
+        	LOGGER.info("Executando em modo debug, autenticação desabilitada");
         }
 
         JFrame mainFrame;
 
-        mainFrame = new JFrame("Sistema de CondomÃ­nios");
+        mainFrame = new JFrame("Sistema de Condomínios");
         Dimension monitor = Toolkit.getDefaultToolkit().getScreenSize();
         int width = 800;
         int height = 600;

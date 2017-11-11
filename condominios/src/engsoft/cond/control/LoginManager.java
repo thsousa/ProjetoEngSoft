@@ -59,10 +59,8 @@ public class LoginManager {
     }
 
 
-    public LoginScreen getLoginScreen() {
-        if (loginScreen == null) {
-            loginScreen = new LoginScreen();
-        }
+    public LoginScreen getLoginScreen() {        
+        loginScreen = new LoginScreen();
         return loginScreen;
     }
 

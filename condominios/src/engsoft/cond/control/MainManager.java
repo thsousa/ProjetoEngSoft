@@ -12,8 +12,8 @@ import engsoft.cond.screen.Screen;
 public class MainManager {
 
     public static final boolean DEBUG = true;
-    public static final boolean POP_DB = true;
-    public static final boolean CLEAR_DB = true;
+    public static final boolean POP_DB = false;
+    public static final boolean CLEAR_DB = false;
 
     private JFrame mainFrame;
     private static MainManager autoRef;
@@ -51,7 +51,6 @@ public class MainManager {
         mainFrame.setMinimumSize(newScreen.getSize());
         mainFrame.setMaximumSize(newScreen.getSize());
         mainFrame.setPreferredSize(newScreen.getSize());
-        mainFrame.pack();
         mainFrame.setLocation((monitor.width - mainFrame.getWidth()) / 2,
                 (monitor.height - mainFrame.getHeight()) / 2);
         mainFrame.revalidate();
@@ -74,7 +73,6 @@ public class MainManager {
     }
 
     public void refresh() {
-        mainFrame.pack();
         mainFrame.revalidate();
         mainFrame.repaint();
     }

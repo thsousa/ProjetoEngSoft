@@ -13,13 +13,12 @@ public class MorScreen extends Screen {
      *
      */
     private static final long serialVersionUID = -5258163305153901400L;
-    private static final int DEFAULT_WIDTH = 800;
-    private static final int DEFAULT_HEIGHT = 600;
 
 
     public MorScreen() {
 
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.setMinimumSize(getSize());
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

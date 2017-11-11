@@ -21,12 +21,10 @@ public class GoogleLoginScreen extends Screen {
      */
     private static final long serialVersionUID = 1L;
 
-    private static final int DEFAULT_WIDTH = 300;
-    private static final int DEFAULT_HEIGHT = 400;
-
     public GoogleLoginScreen() {
 
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.setMinimumSize(getSize());
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

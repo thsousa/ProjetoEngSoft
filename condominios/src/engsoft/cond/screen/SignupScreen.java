@@ -20,8 +20,6 @@ public class SignupScreen extends Screen {
      *
      */
     private static final long serialVersionUID = 8183767463523397286L;
-    private static final int DEFAULT_WIDTH = 300;
-    private static final int DEFAULT_HEIGHT = 600;
 
     public SignupScreen() {
         initScreen("", "", "", "", "", "");
@@ -38,6 +36,7 @@ public class SignupScreen extends Screen {
     private void initScreen(String email, String nome, String cpf, String cnpj, String tel1, String tel2) {
 
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.setMinimumSize(getSize());
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

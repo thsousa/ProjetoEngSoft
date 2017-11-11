@@ -22,9 +22,7 @@ public class MenuManager {
     }
     
     public MainMenuScreen getMainMenu() {
-        if (moradorMenu == null) {
-            moradorMenu = new MainMenuScreen(MainManager.getInstance().getActiveUser());
-        } 
+        moradorMenu = new MainMenuScreen(MainManager.getInstance().getActiveUser());
         return moradorMenu;
     }
 }
