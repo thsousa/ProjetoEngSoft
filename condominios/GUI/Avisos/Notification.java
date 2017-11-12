@@ -1,3 +1,4 @@
+package Avisos;
 import javax.swing.GroupLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -31,7 +32,7 @@ public class Notification extends JPanel {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.weightx = 1;
         gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         mainList.add(new Review(), gbc);
         
         
@@ -45,7 +46,7 @@ public class Notification extends JPanel {
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridwidth = GridBagConstraints.REMAINDER;
                 gbc.weightx = 1;
-                gbc.fill = GridBagConstraints.HORIZONTAL;
+                gbc.fill = GridBagConstraints.BOTH;
                 mainList.add(coment, gbc, 0);
 
                 validate();

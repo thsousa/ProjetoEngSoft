@@ -1,3 +1,4 @@
+package Avisos;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
