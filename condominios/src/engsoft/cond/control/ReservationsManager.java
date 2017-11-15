@@ -1,5 +1,9 @@
 package engsoft.cond.control;
 
+import java.util.ArrayList;
+
+import engsoft.cond.model.AreaComum;
+import engsoft.cond.model.Condominio;
 import engsoft.cond.screen.ReservationsScreen;
 
 public class ReservationsManager {
@@ -23,10 +27,8 @@ public class ReservationsManager {
     }
 
 
-    public ReservationsScreen getReservationsScreen() {
-        if (reservationsScreen == null) {
-            reservationsScreen = new ReservationsScreen();
-        }
+    public ReservationsScreen getReservationsScreen(Condominio cond) {
+        reservationsScreen = new ReservationsScreen(new ArrayList<AreaComum>(cond.getAreas()));
         return reservationsScreen;
     }
 

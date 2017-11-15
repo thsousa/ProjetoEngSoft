@@ -22,7 +22,12 @@ public class MenuManager {
     }
     
     public MainMenuScreen getMainMenu() {
-        moradorMenu = new MainMenuScreen(MainManager.getInstance().getActiveUser());
+        moradorMenu = new MainMenuScreen(MainManager.getInstance().getActiveUser(), false);
+        return moradorMenu;
+    }
+
+    public MainMenuScreen getMainMenu(boolean admSwitch) {
+        moradorMenu = new MainMenuScreen(MainManager.getInstance().getActiveUser(), admSwitch);
         return moradorMenu;
     }
 }

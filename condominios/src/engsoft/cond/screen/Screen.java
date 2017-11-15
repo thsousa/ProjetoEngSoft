@@ -19,8 +19,8 @@ public class Screen extends JPanel {
      *
      */
     private static final long serialVersionUID = -5551074437665635282L;
-    protected static final int DEFAULT_WIDTH = 800;
-    protected static final int DEFAULT_HEIGHT = 600;
+    protected static final int DEFAULT_WIDTH = 1024;
+    protected static final int DEFAULT_HEIGHT = 720;
 
     private JLabel err;
 

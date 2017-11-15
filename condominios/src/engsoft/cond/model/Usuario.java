@@ -185,6 +185,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return id_usuario + " - " + email + " - " + nome + " - Nivel: " + nivel_acesso;
+        return email + " - " + nome;
     }
 }

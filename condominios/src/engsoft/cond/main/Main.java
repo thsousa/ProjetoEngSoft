@@ -41,8 +41,8 @@ public class Main {
 
         mainFrame = new JFrame("Sistema de Condomínios");
         Dimension monitor = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = 800;
-        int height = 600;
+        int width = 1024;
+        int height = 720;
 
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

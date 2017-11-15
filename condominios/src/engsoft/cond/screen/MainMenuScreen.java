@@ -30,7 +30,7 @@ public class MainMenuScreen extends Screen {
     public MainMenuScreen() {
     }
 
-    public MainMenuScreen(Usuario user) {
+    public MainMenuScreen(Usuario user, boolean admSwitch) {
 
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.setMinimumSize(getSize());
@@ -46,7 +46,7 @@ public class MainMenuScreen extends Screen {
 
         JLabel noCondo = new JLabel();
 
-        boolean hasNoCondo = user.getCondominios().isEmpty();
+        boolean hasNoCondo = user.getCondominios().isEmpty() && (!user.getNivel_acesso().contains(SYSADMIN_LEVEL));
         if (hasNoCondo) {
             noCondo = new JLabel("Você não está cadastrado em nenhum condomínio, entre em contato com seu síndico ou administradora.");
             noCondo.setAlignmentX(CENTER_ALIGNMENT);
@@ -78,6 +78,22 @@ public class MainMenuScreen extends Screen {
             }
             
             this.addLogoutButton();
+            
+            if (admSwitch) {
+                JButton voltarMenuAdm = new JButton("Voltar ao gerenciamento de condomínios");
+                voltarMenuAdm.addActionListener(new ActionListener() {
+                    
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        MainManager.getInstance().swapTempUser(null);
+                        MainManager.getInstance().changeScreen(CondoManager.getInstance().getCondoScreen(false));
+                        MainManager.getInstance().cleanseScreenList();
+                    }
+                });
+                this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
+                this.add(voltarMenuAdm);
+            }
+            
         }
 
     }
@@ -89,7 +105,7 @@ public class MainMenuScreen extends Screen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainManager.getInstance().changeScreen(NoticesManager.getInstance().getNoticesScreen());
+                MainManager.getInstance().changeScreen(NoticesManager.getInstance().getNoticesScreen(MainManager.getInstance().getActiveUser().getCondominios().get(0).getMural()));
             }
         });
         JButton reserv = new JButton("Reservas de Áreas comuns");
@@ -98,7 +114,7 @@ public class MainMenuScreen extends Screen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainManager.getInstance().changeScreen(ReservationsManager.getInstance().getReservationsScreen());
+                MainManager.getInstance().changeScreen(ReservationsManager.getInstance().getReservationsScreen(MainManager.getInstance().getActiveUser().getCondominios().get(0)));
             }
         });
         JButton updateInfo = new JButton("Atualizar cadastro");
@@ -107,7 +123,7 @@ public class MainMenuScreen extends Screen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainManager.getInstance().changeScreen(SignupManager.getInstance().getSignupScreen(MainManager.getInstance().getActiveUser()));
+                MainManager.getInstance().changeScreen(SignupManager.getInstance().getSignupScreen(MainManager.getInstance().getActiveUser(), true));
             }
         });
 
@@ -121,7 +137,7 @@ public class MainMenuScreen extends Screen {
     
     private void buildSysAdmMenu() {
         
-        JButton cadAdm = new JButton("Cadastro de administradoras");
+        JButton cadAdm = new JButton("Gerenciar condomínios/administradoras");
         cadAdm.setAlignmentX(CENTER_ALIGNMENT);
         cadAdm.addActionListener(new ActionListener() {
 
@@ -130,20 +146,9 @@ public class MainMenuScreen extends Screen {
                 MainManager.getInstance().changeScreen(AdmManager.getInstance().getAdmScreen());
             }
         });
-        JButton cadCond = new JButton("Cadastro de condomínios");
-        cadCond.setAlignmentX(CENTER_ALIGNMENT);
-        cadCond.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                MainManager.getInstance().changeScreen(AdmManager.getInstance().getCondCadScreen());
-            }
-        });
-
+        
         this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
         this.add(cadAdm);
-        this.add(Box.createRigidArea(new Dimension(DEFAULT_WIDTH, 20)));
-        this.add(cadCond);
         
     }
     

@@ -96,11 +96,13 @@ public class Condominio {
 
     @Override
     public String toString() {
-        String str_areas = "Areas: ";
-        for(AreaComum a : areas) {
-            str_areas = str_areas + "\n" + a.toString();
-        }
-        return "Condomï¿½nio " + nome + " - endereï¿½o: " + endereco + "\n" + str_areas;
+        return "Condomínio " + nome;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        Condominio other = (Condominio) obj;
+        return (this.nome.equals(other.getNome()) && this.endereco.equals(other.getEndereco()) && this.id_condominio == other.getId_condominio());
     }
 
 

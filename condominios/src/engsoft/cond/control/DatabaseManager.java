@@ -13,7 +13,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import engsoft.cond.model.AreaComum;
+import engsoft.cond.model.Aviso;
+import engsoft.cond.model.Calendario;
+import engsoft.cond.model.ComentarioAviso;
+
+import static engsoft.cond.util.Constants.*;
 import engsoft.cond.model.Condominio;
+import engsoft.cond.model.Mural;
+import engsoft.cond.model.Reserva;
 import engsoft.cond.model.Usuario;
 import engsoft.cond.persistence.EMF;
 
@@ -135,6 +142,27 @@ public class DatabaseManager {
         }
     }
 
+    public boolean removeEntity(Object entity) {
+        em = EMF.get().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+            em.remove(entity);
+            tx.commit();
+            return (true);
+        } catch (Exception e) {
+            LOGGER.error("Erro ao remover objeto.");
+            e.printStackTrace();
+            return (false);
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+
+            em.close();
+        }
+    }
+
     public void clearTable(String table) {
         em = EMF.get().createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -157,7 +185,58 @@ public class DatabaseManager {
         }
     }
 
+    public void updateUser(Usuario u) {
+        em = EMF.get().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        Usuario curr = em.find(Usuario.class, u.getId_usuario());
+
+        try {
+            tx.begin();
+
+            // TODO adicionar outros campos
+            // TODO handle e-mail change properly
+
+            if (!(curr.getCondominios().equals(u.getCondominios()))) {
+                curr.setCondominios(u.getCondominios());
+            }
+
+            if (!(curr.getNivel_acesso().equals(u.getNivel_acesso()))) {
+                curr.setNivel_acesso(u.getNivel_acesso());
+            }
+
+            if (!(curr.getEmail().equals(u.getEmail()))) {
+                curr.setEmail(u.getEmail());
+            }
+
+            if (!(curr.getTel1().equals(u.getTel1()))) {
+                curr.setTel1(u.getTel1());
+            }
+
+            if (!(curr.getTel2().equals(u.getTel2()))) {
+                curr.setTel2(u.getTel2());
+            }
+
+            if (!(curr.getNome().equals(u.getNome()))) {
+                curr.setNome(u.getNome());
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+
+            LOGGER.error("Error updating user.");
+            e.printStackTrace();
+
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+
+            em.close();
+        }
+    }
+
     public Usuario getRegisteredUser(String email) {
+
         em = EMF.get().createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
@@ -187,6 +266,62 @@ public class DatabaseManager {
             em.close();
         }
 
+    }
+    
+    public void removeUserFromBuilding(Usuario u, Condominio bldg) {
+        // TODO arrumar remoÁ„o, n„o parece estar removendo de verdade no bd
+        em = EMF.get().createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        u.removeCondominio(bldg);
+        tx.commit();
+        em.close();
+    }
+
+    public void removeBuilding(Condominio bldg) {
+        // TODO verificar remoÁ„o
+        em = EMF.get().createEntityManager();
+        EntityTransaction tx;
+        ArrayList<Object> users = getListFromTable("Usuario");
+
+        for (Object u : users) {
+            Usuario us = (Usuario) u;
+
+            if (us.getCondominios().contains(bldg)) {
+                tx = em.getTransaction();
+                tx.begin();
+                us.removeCondominio(bldg);
+                tx.commit();
+            }
+        }
+
+        ArrayList<Object> cals = getListFromTable("Calendario");
+
+        for (Object u : cals) {
+            Calendario us = (Calendario) u;
+
+            if (us.getCondominio().equals(bldg)) {
+                tx = em.getTransaction();
+                tx.begin();
+                us.setCondominio(null);
+                tx.commit();
+            }
+        }
+
+        ArrayList<Object> mur = getListFromTable("Mural");
+
+        for (Object u : mur) {
+            Mural us = (Mural) u;
+
+            if (us.getCondominio().equals(bldg)) {
+                tx = em.getTransaction();
+                tx.begin();
+                us.setCondominio(null);
+                tx.commit();
+            }
+        }
+        em.close();
+        removeEntity(bldg);
     }
 
     // TODO se for facilitar, colocar alguns avisos/reservas tambem
@@ -225,15 +360,16 @@ public class DatabaseManager {
 
         AreaComum a1 = new AreaComum("Churrasqueira",
                 "Churrasqueira, capacidade 30 pessoas.");
-        AreaComum a2 = new AreaComum("Sal√£o de festas bloco A",
-                "Sal√£o de festas do bloco A, capacidade 100 pessoas.");
-        AreaComum a3 = new AreaComum("Sal√£o de festas bloco B",
-                "Sal√£o de festas do bloco B, capacidade 50 pessoas.");
+        AreaComum a2 = new AreaComum("Sal„o de festas bloco A",
+                "Sal„o de festas do bloco A, capacidade 100 pessoas.");
+        AreaComum a3 = new AreaComum("Sal„o de festas bloco B",
+                "Sal„o de festas do bloco B, capacidade 50 pessoas.");
         AreaComum a4 = new AreaComum("Academia",
-                "Academia com esteiras e equipamentos de muscula√ß√£o.");
+                "Academia com esteiras e equipamentos de musculaÁ„o.");
 
         Condominio c1 = new Condominio("Cond1", "local 1");
         Condominio c2 = new Condominio("Cond2", "local 2");
+        
 
         c1.addArea(a1);
         c1.addArea(a2);
@@ -278,7 +414,50 @@ public class DatabaseManager {
         saveEntity(u12);
         saveEntity(u13);
         saveEntity(u14);
+        
+        Reserva r1 = new Reserva(u1, a1, "30/11/2017", "15:50-20:50", null, RESERVA_APROVADA);
+        Reserva r2 = new Reserva(u2, a1, "30/11/2017", "15:00-20:00", null, RESERVA_REJEITADA);
+        Reserva r3 = new Reserva(u1, a2, "30/12/2017", "12:00-00:00", null, RESERVA_PENDENTE);
+        Reserva r4 = new Reserva(u1, a1, "30/12/2017", "12:00-00:00", null, RESERVA_PENDENTE);
+        Reserva r5 = new Reserva(u2, a2, "30/12/2017", "12:00-00:00", null, RESERVA_PENDENTE);
+        
+        Calendario cal1 = new Calendario(c1);
+        cal1.addReserva(r1);
+        cal1.addReserva(r2);
+        cal1.addReserva(r3);
+        cal1.addReserva(r4);
+        cal1.addReserva(r5);
 
+        
+        saveEntity(r1);
+        saveEntity(r2);
+        saveEntity(r3);
+        saveEntity(r4);
+        saveEntity(r5);
+        
+        saveEntity(cal1);
+        
+        
+        Aviso av1 = new Aviso(u1, "11/15/2017 17:50", "VENDA - Bicicleta", "Vendo bicicleta Caloi, contato xxxx-xxxx");
+        Aviso av2 = new Aviso(u5, "11/10/2017 08:00", "Festa de fim de ano", "A festa de fim de ano est· marcada para o dia 03/12/2017, a partir das 11hrs");
+
+        ComentarioAviso cav1 = new ComentarioAviso(u2, "11/15/2017 17:52", "Liguei mas ninguÈm atendeu");
+        ComentarioAviso cav2 = new ComentarioAviso(u3, "11/14/2017 14:22", "Legal!");
+        
+        av1.addComentario(cav1);
+        av2.addComentario(cav2);
+        
+        Mural mur1 = new Mural(c1);
+        mur1.addAviso(av1);
+        mur1.addAviso(av2);
+        
+        saveEntity(cav1);
+        saveEntity(cav2);
+        saveEntity(av1);
+        saveEntity(av2);
+        saveEntity(mur1);
+        
+        
     }
 
 }

@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import engsoft.cond.control.DatabaseManager;
 import engsoft.cond.control.SignupManager;
 import engsoft.cond.model.Usuario;
 
@@ -20,6 +21,8 @@ public class SignupScreen extends Screen {
      *
      */
     private static final long serialVersionUID = 8183767463523397286L;
+    private boolean isUpdate = false;
+    private Usuario recUser;
 
     public SignupScreen() {
         initScreen("", "", "", "", "", "");
@@ -29,7 +32,9 @@ public class SignupScreen extends Screen {
         initScreen(email, nome, "", "", "", "");
     }
 
-    public SignupScreen(Usuario user) {
+    public SignupScreen(Usuario user, boolean isUpdate) {
+        this.isUpdate = isUpdate;
+        this.recUser = user;
         initScreen(user.getEmail(), user.getNome(), user.getCpf(), user.getCnpj(), user.getTel1(), user.getTel2());
     }
 
@@ -98,7 +103,17 @@ public class SignupScreen extends Screen {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                SignupManager.getInstance().doSignup(nomeT.getText(), emailT.getText(), cpfT.getText(), cnpjT.getText(), tel1T.getText(), tel2T.getText());
+                if (isUpdate) {
+                    recUser.setNome(nomeT.getText());
+                    recUser.setEmail(emailT.getText());
+                    recUser.setCpf(cpfT.getText());
+                    recUser.setCnpj(cnpjT.getText());
+                    recUser.setTel1(tel1T.getText());
+                    recUser.setTel2(tel2T.getText());
+                    DatabaseManager.getInstance().updateUser(recUser);
+                } else {
+                    SignupManager.getInstance().doSignup(nomeT.getText(), emailT.getText(), cpfT.getText(), cnpjT.getText(), tel1T.getText(), tel2T.getText());
+                }
             }
         });
         signupButton.setAlignmentX(CENTER_ALIGNMENT);

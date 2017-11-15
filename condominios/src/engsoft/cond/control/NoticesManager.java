@@ -1,5 +1,6 @@
 package engsoft.cond.control;
 
+import engsoft.cond.model.Mural;
 import engsoft.cond.screen.NoticesScreen;
 
 public class NoticesManager {
@@ -23,10 +24,8 @@ public class NoticesManager {
     }
 
 
-    public NoticesScreen getNoticesScreen() {
-        if (noticesScreen == null) {
-            noticesScreen = new NoticesScreen();
-        }
+    public NoticesScreen getNoticesScreen(Mural mural) {
+        noticesScreen = new NoticesScreen(mural);
         return noticesScreen;
     }
 

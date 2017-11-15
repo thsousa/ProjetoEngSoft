@@ -7,17 +7,20 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import engsoft.cond.model.Usuario;
+import engsoft.cond.screen.MainMenuScreen;
 import engsoft.cond.screen.Screen;
 
 public class MainManager {
 
-    public static final boolean DEBUG = false;
-    public static final boolean POP_DB = false;
+    public static final boolean DEBUG = true;
+    public static final boolean POP_DB = true;
     public static final boolean CLEAR_DB = false;
 
     private JFrame mainFrame;
     private static MainManager autoRef;
     private Usuario activeUser;
+    private Usuario inactiveUser;
+    private boolean switchedUsersTemp = false;
 
     private ArrayList<Screen> screenList = new ArrayList<Screen>();
 
@@ -84,5 +87,42 @@ public class MainManager {
     public Usuario getActiveUser() {
         return activeUser;
     }
+    
+    public void swapTempUser(Usuario tmpUser) {
+        
+        if (switchedUsersTemp) {
+            
+            activeUser = inactiveUser;
+            switchedUsersTemp = false;
+            
+        } else {        
+            
+            inactiveUser = activeUser;
+            activeUser = tmpUser;
+            switchedUsersTemp = true;
+        }
+    }
+
+    public void cleanseScreenList() {
+        Screen fS = screenList.get(0);
+        Screen menuS = null;
+        int i = 0;
+        
+        for (Screen l : screenList) {
+            if (l.getClass().equals(MainMenuScreen.class)) {
+                menuS = l;
+                break;
+            }
+            i++;
+        }
+        
+        if (menuS != null) {
+            Screen mS = screenList.get(i + 1);
+            screenList.clear();
+            screenList.add(fS);
+            screenList.add(menuS);
+            screenList.add(mS);
+        }
+    }    
 
 }

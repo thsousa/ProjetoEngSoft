@@ -37,13 +37,14 @@ public class SignupManager {
     }
 
 
-    public SignupScreen getSignupScreen(Usuario user) {
-        signupScreen = new SignupScreen(user);
+    public SignupScreen getSignupScreen(Usuario user, boolean isUpdate) {
+        signupScreen = new SignupScreen(user, isUpdate);
         return signupScreen;
     }
 
     /**
      * TODO: Validação de dados, tratamento de erro de cadastro (se quebrar unique no CPF/EMAIL/CNPJ)
+     * Tratamento de update ao inv�s de signup
      * @param nome
      * @param email
      * @param cpf

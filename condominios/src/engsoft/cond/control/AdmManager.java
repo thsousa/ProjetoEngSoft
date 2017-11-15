@@ -1,7 +1,11 @@
 package engsoft.cond.control;
 
+import java.util.ArrayList;
+
+import engsoft.cond.model.Condominio;
+import engsoft.cond.model.Usuario;
+import static engsoft.cond.util.Constants.*;
 import engsoft.cond.screen.AdmScreen;
-import engsoft.cond.screen.CondCadScreen;
 
 public class AdmManager {
 
@@ -9,8 +13,6 @@ public class AdmManager {
 
 
     private AdmScreen admScreen;
-    private CondCadScreen condCadScreen;
-
 
     public AdmManager() {
 
@@ -26,17 +28,27 @@ public class AdmManager {
 
 
     public AdmScreen getAdmScreen() {
-        if (admScreen == null) {
-            admScreen = new AdmScreen();
-        }
+        admScreen = new AdmScreen();
+        repopScreenLists();
         return admScreen;
-    }    
+    }   
     
-    public CondCadScreen getCondCadScreen() {
-        if (condCadScreen == null) {
-            condCadScreen = new CondCadScreen();
+    
+    public void repopScreenLists() {
+        ArrayList<Object> condominios = DatabaseManager.getInstance().getListFromTable("Condominio");
+        admScreen.populateBuildingsPanel(condominios);
+    }
+    
+    public void handleBldgSelection(Condominio selected) {
+        ArrayList<Object> usuarios = DatabaseManager.getInstance().getListFromTable("Usuario");
+        ArrayList<Usuario> adms_condominio = new ArrayList<>();
+        for (Object u : usuarios) {
+            Usuario user = (Usuario) u;
+            if (user.getNivel_acesso().contains(ADMIN_LEVEL) && user.getCondominios().contains(selected)) {
+                adms_condominio.add(user);
+            }
         }
-        return condCadScreen;
-    }    
+        admScreen.populateAdmsPanel(adms_condominio);
+    }
 
 }
